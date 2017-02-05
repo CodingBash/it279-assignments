@@ -20,3 +20,6 @@ Sort.o: Sort.cpp Sort.h
 
 clean:
 	rm -f *.o *.out main
+
+run: clean main
+	./main

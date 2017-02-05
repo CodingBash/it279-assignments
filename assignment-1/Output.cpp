@@ -2,8 +2,12 @@
 
 void Output::printVector(std::vector<int> output)
 {
-	for (auto s : output) {
-		std::cout << s << " ";
+	std::string outputString = "";
+	for (int s : output) {
+		outputString += std::to_string(s) + ", ";
 	}
-	std::cout << std::endl;
+	if (!outputString.empty()) {
+		outputString = outputString.substr(0, outputString.size() - 2);
+	}
+	std::cout << outputString << std::endl;
 }
