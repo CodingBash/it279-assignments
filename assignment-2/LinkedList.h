@@ -3,13 +3,20 @@
 #include "Node.h"
 #include <iostream>
 #include <cstdlib>
+#include <cstddef>
+#include <string>
+#include <vector>
 
 template <class T>
 class LinkedList {
+protected:
+	Node<T>* head;
+	std::size_t length;
 public:
-  Node<T>* head;
   void add(T data);
-  void print();
+  std::vector<T> to_vec();
+  int sum();
+  float average();
   LinkedList();
   ~LinkedList();
 };
@@ -17,6 +24,7 @@ public:
 template <class T>
 LinkedList<T>::LinkedList() {
 	this->head = NULL;
+	this->length = 0;
 }
 
 template <class T>
@@ -31,6 +39,7 @@ LinkedList<T>::~LinkedList() {
 			delete current;
 		}
 		head = NULL;
+		this->length = 0;
 	}
 }
 
@@ -46,21 +55,22 @@ void LinkedList<T>::add(T data){
     }
     (*current)->setNext(new Node<T>(data));
   }
+  ++length;
 }
 
 template <class T>
-void LinkedList<T>::print(){
-  if(this->head){
-    Node<T>** current = &head;
-	std::cout << (*current)->getData() << ", ";
-    while((*current)->getNext()){
-      current = &(*current)->getNext();
-	  std::cout << (*current)->getData() << ", ";
-    }
-	std::cout << " " << std::endl;
-  }
+std::vector<T> LinkedList<T>::to_vec(){
+	std::vector<T> vec;
+	if(this->head){
+		Node<T>** current = &head;
+		vec.push_back((*current)->getData());
+		while((*current)->getNext()){
+			current = &(*current)->getNext();
+			vec.push_back((*current)->getData());
+		}
+	}
+	return vec;
 }
-
 
 template class LinkedList<int>;
 #endif

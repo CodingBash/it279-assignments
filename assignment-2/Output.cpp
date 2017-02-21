@@ -9,5 +9,5 @@ void Output::printVector(std::vector<int> output)
 	if (!outputString.empty()) {
 		outputString = outputString.substr(0, outputString.size() - 2);
 	}
-	std::cout << outputString << std::endl;
+	std::cout << "You entered: " << outputString << std::endl;
 }
