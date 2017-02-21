@@ -9,16 +9,17 @@
 
 template <class T>
 class LinkedList {
-protected:
+public:
 	Node<T>* head;
 	std::size_t length;
-public:
-  void add(T data);
-  std::vector<T> to_vec();
-  int sum();
-  float average();
-  LinkedList();
-  ~LinkedList();
+	void add(T data);
+	void add(LinkedList<T> &target);
+	LinkedList<T>& concatenate(LinkedList<T> &list_1, LinkedList<T> &list_2);
+	std::vector<T> to_vec();
+	int sum();
+	float average();
+	LinkedList();
+	~LinkedList();
 };
 
 template <class T>
@@ -43,7 +44,6 @@ LinkedList<T>::~LinkedList() {
 	}
 }
 
-
 template <class T>
 void LinkedList<T>::add(T data){
   if(!this->head){
@@ -59,6 +59,35 @@ void LinkedList<T>::add(T data){
 }
 
 template <class T>
+void LinkedList<T>::add(LinkedList<T> &target) {
+	if (!this->head) {
+		// Nothing to base, steal target
+		this->head = target.head;
+		this->length += target.length;
+	}
+	else if (!target.head) {
+		// Nothing to add
+	} else {
+		/*
+		*Get this tail
+		*/
+		Node<T>* tail = NULL;
+		Node<T>** current = &head;
+		while ((*current)->getNext()) {
+			current = &(*current)->getNext();
+		}
+		tail = (*current);
+
+		/*
+		* Add target head to this tail
+		*/
+		tail->setNext(target.head);
+		tail = NULL;
+		this->length += target.length;
+	}
+}
+
+template <class T>
 std::vector<T> LinkedList<T>::to_vec(){
 	std::vector<T> vec;
 	if(this->head){
@@ -70,6 +99,12 @@ std::vector<T> LinkedList<T>::to_vec(){
 		}
 	}
 	return vec;
+}
+
+template <class T>
+LinkedList<T>& LinkedList<T>::concatenate(LinkedList<T> &list_1, LinkedList<T> &list_2) {
+	list_1.add(list_2);
+	return list_1;
 }
 
 template class LinkedList<int>;
