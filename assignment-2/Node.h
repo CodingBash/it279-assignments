@@ -5,7 +5,7 @@ template <class T>
 class Node{
 private:
     T data;
-    Node<T>*& next;
+    Node<T>* next;
 public:
   T getData();
   void setData(T data);
@@ -19,6 +19,11 @@ template <class T>
 Node<T>::Node(T data){
   this->data = data;
 }
+
+template <class T>
+Node<T>::~Node(){
+
+}
 template <class T>
 T Node<T>::getData(){
   return this->data;
@@ -26,7 +31,7 @@ T Node<T>::getData(){
 
 template <class T>
 Node<T>*& Node<T>::getNext(){
-  return &this->next;
+  return this->next;
 }
 
 template <class T>

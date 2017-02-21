@@ -16,8 +16,24 @@ public:
 
 template <class T>
 LinkedList<T>::LinkedList() {
-
+	this->head = NULL;
 }
+
+template <class T>
+LinkedList<T>::~LinkedList() {
+	if (this->head) {
+		Node<T>* current = head;
+		Node<T>* next = current->getNext();
+		delete current;
+		while (next) {
+			current = next;
+			next = current->getNext();
+			delete current;
+		}
+		head = NULL;
+	}
+}
+
 
 template <class T>
 void LinkedList<T>::add(T data){
@@ -34,13 +50,14 @@ void LinkedList<T>::add(T data){
 
 template <class T>
 void LinkedList<T>::print(){
-  if(!this->head){
+  if(this->head){
     Node<T>** current = &head;
-    std::cout << (*current)->getData() << std::endl;
+	std::cout << (*current)->getData() << ", ";
     while((*current)->getNext()){
       current = &(*current)->getNext();
-      std::cout << (*current)->getData() << std::endl;
+	  std::cout << (*current)->getData() << ", ";
     }
+	std::cout << " " << std::endl;
   }
 }
 

@@ -1,5 +1,5 @@
 #include "Output.h"
-
+#include <string>
 void Output::printVector(std::vector<int> output)
 {
 	std::string outputString = "";
